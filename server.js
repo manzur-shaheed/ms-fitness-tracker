@@ -25,7 +25,7 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout-db", {
 });
 
 // routes
-app.use(require("./routes/api.js"));
+app.use(require("./public/api.js"));
 
 app.get("/stats", function(req, res) {
   res.sendFile(path.join(__dirname, '/public/stats.html'));
