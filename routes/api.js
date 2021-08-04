@@ -1,7 +1,33 @@
+// express router
 const router = require("express").Router();
 const { Workout } = require("../models");
 
-router.get("/api/workouts", async (req, res) => {
+// add a workout
+router.post("/api/workouts", ({ body }, res) => {
+  Workout.create(body)
+    .then(workout => {
+      res.json(workout);
+    })
+    .catch(err => {
+      res.status(400).json(err);
+    });
+});
+
+// update workout
+router.put("/api/workouts/:id", (req, res) => {
+  Workout.updateOne(
+    { _id: req.params.id },
+    { $push: { exercises: req.body } })
+    .then((workout) => {
+      res.json(workout);
+    })
+    .catch(err => {
+      res.status(400).json(err);
+    });
+});
+
+// Get duration
+router.get("/api/workouts", (req, res) => {
   Workout.aggregate([
     {
       $addFields: {
@@ -9,38 +35,17 @@ router.get("/api/workouts", async (req, res) => {
       },
     },
   ])
-    .then((workout_tracker) => {
-      res.json(workout_tracker);
-    })
-    .catch((e) => {
-      res.json(e);
-    });
+  .sort({ day: -1 })
+  .then((workout) => {
+    res.json(workout);
+  })
+  .catch(err => {
+    res.status(400).json(err);
+  });
 });
 
-router.post("/api/workouts", (req, res) => {
-  Workout.create({})
-    .then((workout_tracker) => {
-      res.json(workout_tracker);
-    })
-    .catch((e) => {
-      res.json(e);
-    });
-});
-
-router.put("/api/workouts/:id", ({body, params}, res) => {
-
-  Workout.findByIdAndUpdate( params.id,
-    { $push: {exercises: body}},
-    { new: true, runValidators: true })
-    .then((workout_tracker) => {
-      res.json(workout_tracker);
-    })
-    .catch((e) => {
-      res.json(e);
-    });
-});
-
-router.get("/api/workouts/range", async (req, res) => {
+// duration for a range
+router.get("/api/workouts/range", (req, res) => {
   Workout.aggregate([
     {
       $addFields: {
@@ -48,18 +53,18 @@ router.get("/api/workouts/range", async (req, res) => {
       },
     },
   ])
-    .sort({ _id: -1})
-    .limit(7)
-    .then((workout_tracker) => {
-      res.json(workout_tracker);
-    })
-    .catch((e) => {
-      res.json(e);
-    });
+  .sort({ day: -1})
+  .limit(7)
+  .then((workout) => {
+    res.json(workout);
+  })
+  .catch(err => {
+    res.status(400).json(err);
+  });
 });
 
 router.delete('/api/workouts',({ body }, res) =>{
-  Workout.findByIdAndDelete(body.id)
+  Workout.deleteOne({ _id: req.params.id })
   .then(() =>{
     res.json(true);
   })
