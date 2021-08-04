@@ -24,9 +24,10 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
   useCreateIndex: true,
 });
 
-// routes
+// api routes
 app.use(require("./routes/api.js"));
 
+// public routes
 app.get("/stats", function(req, res) {
   res.sendFile(path.join(__dirname, '/public/stats.html'));
 });
