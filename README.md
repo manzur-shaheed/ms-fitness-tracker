@@ -39,6 +39,7 @@ git@github.com:manzur-shaheed/ms-fitness-tracker.git
 mshaheed$ npm run seed
 ```
 Sample run -
+
 ![sample](./assets/images/fitness_tracker.gif)
 ## License
 MIT License
