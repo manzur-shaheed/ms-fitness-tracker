@@ -30,6 +30,10 @@ git@github.com:manzur-shaheed/ms-fitness-tracker.git
 ```
 - If you don't have ```node.js``` installed already then download it from [here](https://nodejs.org/en/download/), and follow the instructions to install it.
 - Once installed, use ```npm``` to install node packages listed above by issuing ```npm i <package>``` command at the terminal prompt.
+- Follow instruction at 
+  * [Set Up MongoDB Atlas](https://columbia.bootcampcontent.com/columbia-bootcamp/cu-nyc-virt-fsf-pt-03-2021-u-c/-/blob/master/18-NoSQL/04-Important/MongoAtlas-Setup.md)
+  * [Deploy with Heroku and MongoDB Atlas](https://columbia.bootcampcontent.com/columbia-bootcamp/cu-nyc-virt-fsf-pt-03-2021-u-c/-/blob/master/18-NoSQL/04-Important/MongoAtlas-Deploy.md).
+
 - Also populate ```workout``` database with some sample data -
 ```
 mshaheed$ npm run seed
